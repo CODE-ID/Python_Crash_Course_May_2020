@@ -1,10 +1,5 @@
 import Rhino
 
-def CheckTolerance(_srf, _val):
-    pass
-    
-    return False
-
 def Subdivide(_surface):
     #Create emptylist
     listOfSurfaces = []
