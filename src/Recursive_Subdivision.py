@@ -24,16 +24,16 @@ def Subdivide(_surface):
     
     #Evaluate Tolerance
     p0 = Rhino.Geometry.Surface.PointAt(_surface, uMin, vMin)
-    p1 = Rhino.Geometry.Surface.PointAt(_surface, uMax, vMax)
+    p1 = Rhino.Geometry.Surface.PointAt(_surface, uMin, vMax)
+    p2 = Rhino.Geometry.Surface.PointAt(_surface, uMax, vMin)
+    p3 = Rhino.Geometry.Surface.PointAt(_surface, uMax, vMax)
     
-    pM0 = Rhino.Geometry.Surface.PointAt(_surface, uMid, vMid)
-    pM1 = (p0 + p1) / 2
+    pM0 = (p0 + p3) / 2
+    pM1 = (p1 + p2) / 2
     
     dist = Rhino.Geometry.Point3d.DistanceTo(pM0, pM1)
     
-    print dist
-    
-    if dist < threshold:
+    if dist < tolerance:
         listOfSurfaces.append(_surface)
     else:
         #Trim the _surface using the intervals (Surface division)
@@ -41,7 +41,6 @@ def Subdivide(_surface):
         s1 = Rhino.Geometry.Surface.Trim(_surface, u1, v0)
         s2 = Rhino.Geometry.Surface.Trim(_surface, u0, v1)
         s3 = Rhino.Geometry.Surface.Trim(_surface, u1, v1)
-        
         
         #Subdivide again
         Subdivide(s0)
