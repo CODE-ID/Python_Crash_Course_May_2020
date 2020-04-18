@@ -1,12 +1,13 @@
-import Rhino
+__author__ = "Zuardin Akbar"
+__version__ = "2020.04.18"
 
-def Subdivide(_surface):
-    #Create emptylist
-    listOfSurfaces = []
+import Rhino as rh
+
+def Subdivide(_srf):
     
-    #Get the the U & V domain of the _surface as intervals
-    u = Rhino.Geometry.Surface.Domain(_surface, 0)
-    v = Rhino.Geometry.Surface.Domain(_surface, 1)
+    #Get the the U & V domain of the _srf as intervals
+    u = rh.Geometry.Surface.Domain(_srf, 0)
+    v = rh.Geometry.Surface.Domain(_srf, 1)
     
     #Get the domain edge values
     uMin = u.Min
@@ -19,26 +20,37 @@ def Subdivide(_surface):
     vMid = (vMax+vMin)/2
     
     #Create Division Intervals
-    u0 = Rhino.Geometry.Interval(uMin, uMid)
-    u1 = Rhino.Geometry.Interval(uMid, uMax)
-    v0 = Rhino.Geometry.Interval(vMin, vMid)
-    v1 = Rhino.Geometry.Interval(vMid, vMax)
+    u0 = rh.Geometry.Interval(uMin, uMid)
+    u1 = rh.Geometry.Interval(uMid, uMax)
+    v0 = rh.Geometry.Interval(vMin, vMid)
+    v1 = rh.Geometry.Interval(vMid, vMax)
     
-    #Trim the _surface using the intervals (Surface division)
-    s0 = Rhino.Geometry.Surface.Trim(_surface, u0, v0)
-    s1 = Rhino.Geometry.Surface.Trim(_surface, u1, v0)
-    s2 = Rhino.Geometry.Surface.Trim(_surface, u0, v1)
-    s3 = Rhino.Geometry.Surface.Trim(_surface, u1, v1)
+    #Evaluate Tolerance
+    p0 = rh.Geometry.Surface.PointAt(_srf, uMin, vMin)
+    p1 = rh.Geometry.Surface.PointAt(_srf, uMin, vMax)
+    p2 = rh.Geometry.Surface.PointAt(_srf, uMax, vMin)
+    p3 = rh.Geometry.Surface.PointAt(_srf, uMax, vMax)
     
-    #Add the splited _surfaces into the list
-    listOfSurfaces.append(s0)
-    listOfSurfaces.append(s1)
-    listOfSurfaces.append(s2)
-    listOfSurfaces.append(s3)
-    
-    return listOfSurfaces
+    if rh.Geometry.Surface.IsPlanar(_srf, tol):
+        listOfSubSurfaces.append(_srf)
+    else:
+        #Trim the _srf using the intervals (Surface division)
+        s0 = rh.Geometry.Surface.Trim(_srf, u0, v0)
+        s1 = rh.Geometry.Surface.Trim(_srf, u1, v0)
+        s2 = rh.Geometry.Surface.Trim(_srf, u0, v1)
+        s3 = rh.Geometry.Surface.Trim(_srf, u1, v1)
+        
+        #Subdivide again
+        Subdivide(s0)
+        Subdivide(s1)
+        Subdivide(s2)
+        Subdivide(s3)
+
+#MAIN PROGRAM
+listOfSubSurfaces = []
+Subdivide(srf)
 
 #OUTPUT
-subSurfaces = Subdivide(surface)
+sub_Srfs = listOfSubSurfaces
 
 
