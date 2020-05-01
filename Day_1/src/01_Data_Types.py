@@ -158,6 +158,36 @@ print(c.upper())
 #get the length of characters
 print("jumlah karakter variabel c adalah " + str(len(c)))
 
+################     LIST     #################
+###############################################
+
+__author__ = "gilang.arenza"
+__version__ = "2020.04.30"
+
+#you can create an empty list
+numbers = []
+#put your data inside square brackets[]
+numbers = [1,2,3]
+friends = ['Ahmad', 'Hartono', 'Ratna', 'Dewi']
+#get first name from the list (index 0)
+print (friends[0])
+#get last name from the list (index 3)
+print (friends[3])
+
+################     LIST2    #################
+###############################################
+
+__author__ = "gilang.arenza"
+__version__ = "2020.04.30"
+
+#list can have multiple data types
+my_list = ['apel',150,'pisang',77,'jeruk',23]
+#you can add more data to list
+my_list.append(7)
+#use extend method to add more elements
+my_list.extend([1000, 'anggur'])
+print (my_list)
+
 
 
 

@@ -36,6 +36,7 @@ for i in nested_pts:
     my_polylines.append(my_polyline.ToPolylineCurve())
 
 #convert python nested list into Grasshopper tree structure
+nested_pts = ghp.treehelpers.list_to_tree(nested_pts)
 
 #################  Function  ##################
 ###############################################
