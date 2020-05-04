@@ -2,7 +2,7 @@
 # CODE-ID: WORKFLOW
 ## Webinar and Online Workshop, 1-3 May 2020
 This repository contains all the example files and source code that were used in the workshop. <br/>
-Author: [Gilang Arenza](https://github.com/glggarenza) & [Zuardin Akbar](https://github.com/zuardinakbar)
+Authors: [Gilang Arenza](https://github.com/glggarenza) & [Zuardin Akbar](https://github.com/zuardinakbar)
 
 ## License
 
